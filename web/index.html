@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="icons/check-red.png" type="image/png">
+    <script src="https://kit.fontawesome.com/162e276c9d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="firstPage bg-red">
+    <div class="settings-container collapse">
+        <div class="settings">
+            <div class="lg">
+                <h2>Settings</h2>
+                <div class="exit"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            <h3>TIMER</h3>
+            <h2>Time (minutes)</h2>
+            <form name="time-settings">
+                <label><h3>Pomodoro</h3><input type="number" name="pomodoro"></label>
+                <label><h3>Short Break</h3><input type="number" name="short-break"></label>
+                <label><h3>Long Break</h3><input type="number" name="long-break"></label>
+            </form>
+        </div>
+    </div>
+    <div class="header" progress="100">
+        <div class="logo"><i class="fa-sharp fa-solid fa-circle-check"></i>Pomofocus</div>
+        <div class="menu">
+            <div class="button"><i class="fa-sharp fa-solid fa-chart-column"></i>Report</div>
+            <div class="settings-button button"><i class="fa-sharp fa-solid fa-gear"></i>Setting</div>
+            <div class="button">
+                <div class="list collapse">
+                    <ul>
+                        <li>Profile</li>
+                        <li>Subscription</li>
+                        <li>Logout</li>
+                        <li>Delete Account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="before"></div>
+    </div>
+    <div class="container">
+        <div class="timer-container">
+            <div class="menu">
+                <ul>
+                    <li class="chosen">Pomodoro</li>
+                    <li>Short Break</li>
+                    <li>Long Break</li>
+                </ul>
+            </div>
+            <div class="timer">00:05</div>
+            <div class="start-button button color-red">START</div>
+            <div class="pause-button button collapse color-red">PAUSE</div>
+        </div>
+        <div class="number">#0</div>
+        <div class="command"></div>
+    </div>
+    <audio src="bell.mp3" id="bell"></audio>
+</div>
+
+<div class="secondPage">
+
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
