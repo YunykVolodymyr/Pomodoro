@@ -4,19 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cd5ca4-b21c-4e70-9e19-003b43381524" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pomodoro.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/css/reset.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/icons/check-blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/icons/check-green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/icons/check-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
+    <list default="true" id="d7cd5ca4-b21c-4e70-9e19-003b43381524" name="Changes" comment="init old version">
+      <change afterPath="$PROJECT_DIR$/web/icons/blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/dark-green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/gold.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/gray.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/icon-white2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/light-gray.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/light-purple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/purple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/icons/remove-black-sm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/sounds/start_pause.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/check-blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/check-green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/check-red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,24 +48,27 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/yunyk/IdeaProjects/Pomodoro/web/icons",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yunyk/IdeaProjects/Pomodoro/web/sounds&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\yunyk\IdeaProjects\Pomodoro\web\sounds" />
       <recent name="C:\Users\yunyk\IdeaProjects\Pomodoro\web\icons" />
+      <recent name="C:\Users\yunyk\IdeaProjects\Pomodoro\web\test" />
       <recent name="C:\Users\yunyk\IdeaProjects\Pomodoro" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -79,11 +89,27 @@
       <workItem from="1677789560470" duration="32000" />
       <workItem from="1677936932282" duration="3095000" />
       <workItem from="1677941798134" duration="611000" />
-      <workItem from="1678010006774" duration="1994000" />
+      <workItem from="1678010006774" duration="19798000" />
+      <workItem from="1678096019918" duration="14719000" />
+      <workItem from="1678140737193" duration="1907000" />
+      <workItem from="1678357797845" duration="18000" />
+      <workItem from="1679152784244" duration="617000" />
     </task>
+    <task id="LOCAL-00001" summary="init old version">
+      <created>1678012301997</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678012301997</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init old version" />
+    <option name="LAST_COMMIT_MESSAGE" value="init old version" />
   </component>
 </project>

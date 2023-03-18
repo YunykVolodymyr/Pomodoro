@@ -1,115 +1,249 @@
-let timerInterval;
-let startButton = document.getElementsByClassName('timer-container')[0].getElementsByClassName('start-button')[0];
-let pauseButton = document.getElementsByClassName('timer-container')[0].getElementsByClassName('pause-button')[0];
+let firstPage = document.getElementsByClassName('firstPage')[0];
+let settingsContainer = document.getElementsByClassName('settings-container')[0];
+let menu = document.querySelectorAll('.timer-container .menu li');
+let times = JSON.parse(localStorage.getItem('times')) || [];
+let themes = JSON.parse(localStorage.getItem('themes')) || [];
 let timer = document.getElementsByClassName('timer')[0];
-let menu = document.getElementsByClassName('timer-container')[0].getElementsByTagName('li');
-let number = document.getElementsByClassName('number')[0];
-let loadingBar = document.getElementsByClassName('before')[0];
-let header = document.getElementsByClassName('header')[0];
-Notification.requestPermission();
+let timeSettings = document.getElementsByClassName('settings')[0]
+    .getElementsByClassName('time-settings')[0]
+    .getElementsByTagName('input');
+let pickColorContainer = document.getElementsByClassName('pick-color-container')[0];
+let chooseBoxes = pickColorContainer.getElementsByClassName('box');
+let timerInterval;
+let numberOfIntervals = JSON.parse(localStorage.getItem('numberOfIntervals')) || 0;
+let longBreakInterval = JSON.parse(localStorage.getItem('longBreakInterval')) || 4;
+let autoStartBreaks = JSON.parse(localStorage.getItem('autoStartBreaks')) || 2;
+let autoStartPomodoros = JSON.parse(localStorage.getItem('autoStartPomodoros')) || 1;
+let title = document.getElementsByTagName('title')[0];
 
-document.head.getElementsByTagName('title')[0].innerText =
-    getFormattedTime(getTime('Pomodoro')) + ' - Time to focus!';
+const THEMERANGE = ['red', 'green', 'blue', 'gold', 'purple', 'light-purple', 'dark-green', 'gray'];
+//adjusting default values
+update();
 
-// transition between different regimes
-for (let i = 0; i < menu.length; i++) {
-    menu[i].addEventListener('click', function (ev) {
-        clearInterval(timerInterval);
-        startButton.classList.remove('collapse');
-        pauseButton.classList.add('collapse');
-        let bgs = {
-            'Pomodoro': ['bg-red', 'color-red', 'icons/check-red.png'],
-            'Short Break': ['bg-green', 'color-green', 'icons/check-green.png'],
-            'Long Break': ['bg-blue', 'color-blue', 'icons/check-blue.png']
-        };
-        let firstPage = document.body.getElementsByClassName('firstPage')[0];
-        firstPage.classList.forEach((c, i, arr) => {
-            if (c.startsWith('bg')) arr.remove(c);
-        });
-        startButton.classList.forEach((c, i, arr) => {
-            if (c.startsWith('color')) arr.remove(c);
-        })
-        pauseButton.classList.forEach((c, i, arr) => {
-            if (c.startsWith('color')) arr.remove(c);
-        })
-        firstPage.classList.add(bgs[this.innerText][0]);
-        startButton.classList.add(bgs[this.innerText][1]);
-        pauseButton.classList.add(bgs[this.innerText][1]);
-//        for (const link of document.getElementsByTagName('link')) {
-//            if (link.getAttribute('rel') === 'icon') {
-//                console.log(link)
-//                link.setAttribute('href', bgs[this.innerText][2]);
-//            }
-//        }
-        document.head.getElementsByTagName('link')
+function update() {
+    times = JSON.parse(localStorage.getItem('times')) || [];
+    timer = document.getElementsByClassName('timer')[0];
+    themes = JSON.parse(localStorage.getItem('themes')) || [];
+    if (times.length === 0)
+        times = ['25:00', '05:00', '15:00'];
+    if (themes.length === 0)
+        themes = ['red', 'green', 'blue']
+    document.getElementsByClassName('long-break-interval')[0].value = longBreakInterval;
+    if (autoStartPomodoros == 2) {
+        document.getElementsByClassName('auto-start-pomodoros')[0].setAttribute('chosen', '');
+    }
+    if (autoStartBreaks == 2) {
+        document.getElementsByClassName('auto-start-breaks')[0].setAttribute('chosen', '');
+    }
+    changeRegime();
+}
+
+menu.forEach(li => {
+    li.addEventListener('click', changeRegime)
+})
+
+function changeRegime() {
+
+
+    if (this !== window) {
+        self = this;
         document.getElementsByClassName('chosen')[0].classList.toggle('chosen');
-        this.classList.toggle('chosen');
-        document.getElementsByClassName('timer')[0].innerText = getFormattedTime(getTime(this.innerText));
+        self.classList.add('chosen');
+    } else {
+        self = document.querySelector('.menu .chosen');
+    }
+    if (self.previousElementSibling === null)
+        i = 0;
+    else if (self.nextElementSibling === null)
+        i = 2;
+    else i = 1;
+
+    for (const theme of THEMERANGE)
+        firstPage.classList.remove(theme);
+    firstPage.classList.add(themes[i]);
+    timer.innerText = times[i];
+    for (let j = 0; j < times.length; j++) {
+        timeSettings[j].value = +(times[j].split(':')[0]);
+    }
+    for (let j = 0; j < 3; j++) {
+        settingsContainer.getElementsByClassName('box')[j].classList.value =
+            settingsContainer.getElementsByClassName('box')[j].classList[0] + ' ' + themes[j];
+    }
+    let iconLink = document.querySelector('link[rel="icon"]');
+    iconLink.setAttribute('href', `icons/${themes[i]}.png`);
+
+    document.getElementsByClassName('number-of-intervals')[0]
+        .innerText = '#' + numberOfIntervals;
+    firstPage.setAttribute('regime', i);
+    document.getElementsByTagName('title')[0].innerText =
+        timer.innerText +
+        (firstPage.getAttribute('regime') === '0' ? ' - Time to focus!' : ' - Time for a break');
+    document.getElementsByClassName('timeFor')[0].innerText =
+        firstPage.getAttribute('regime') === '0' ? 'Time to focus!' : 'Time for a break!';
+    document.getElementsByClassName('loadingBar')[0].style.width = '0';
+}
+
+for (let i = 0; i < timeSettings.length; i++) {
+    let input = timeSettings[i];
+    input.addEventListener('blur', function () {
+        let times = [];
+        for (const input of timeSettings)
+            times.push(String(input.value.padStart(2, '0') + ':00'));
+        localStorage.setItem('times', JSON.stringify(times));
+        update(i);
     })
 }
 
+for (let switchButton of document.getElementsByClassName('switch')) {
+    switchButton.addEventListener('click', function () {
+        this.toggleAttribute('chosen');
+    })
+}
 
-
-startButton.addEventListener('click', function () {
-    let time = (+timer.innerText.split(':')[0] * 60000) + +timer.innerText.split(':')[1] * 1000;
-    let finishTime = new Date(new Date().getTime() + time);
-    timerInterval = window.setInterval(() => {
-        let left = new Date(finishTime.getTime() - new Date().getTime());
-        loadingBar.style.width = (100 - (left.getTime() / time * 100)) + '%';
-        if (left <= 0) {
-            document.getElementById('bell').play();
-            clearInterval(timerInterval);
-            if (document.getElementsByClassName('chosen')[0].innerText === 'Pomodoro') {
-                console.log(number)
-                number.innerText = '#' + ((+number.innerText.substring(1)) + 1);
-                menu[1].click();
-                new Notification('Time to have rest');
-            } else {
-                menu[0].click();
-                new Notification('Time to focus',{body: 'body', icon: 'icon'})
-            }
-        } else{
-            timer.innerText = getFormattedTime(left);
-        }
-    }, 0);
-    this.classList.toggle('collapse');
-    pauseButton.classList.toggle('collapse');
-
-});
-
-pauseButton.addEventListener('click', function () {
-    clearInterval(timerInterval);
-    this.classList.toggle('collapse');
-    startButton.classList.toggle('collapse');
+document.getElementsByClassName('menu')[0].children[1].addEventListener('click', function () {
+    settingsContainer.classList.remove('collapse');
+    document.body.style.overflow = 'hidden'
+    document.getElementsByClassName('chosen')[0].click();
 })
 
-
-header.getElementsByClassName('settings-button')[0].addEventListener('click', function (){
-   let settings = document.getElementsByClassName('settings-container')[0];
-   document.body.style.overflow = 'hidden';
-   settings.classList.remove('collapse');
+document.querySelector('.settings .exit img').addEventListener('click', function () {
+    settingsContainer.classList.toggle('collapse');
+    document.body.style.overflow = 'visible'
+    document.getElementsByClassName('chosen')[0].click();
 });
 
-number.addEventListener('click', function (){
-    if(confirm('Do you want to refresh the pomodoro count?'))
-        this.innerText = '#0';
-})
-
-function getTime(name) {
-    let d = new Date();
-    switch (name) {
-        case 'Pomodoro':
-            d.setTime(5_000);
-            break;
-        case 'Short Break':
-            d.setTime(300_000);
-            break;
-        case 'Long Break':
-            d.setTime(900_000);
+settingsContainer.addEventListener('click', (ev) => {
+    if (ev.target.classList.contains('settings-container')) {
+        settingsContainer.classList.toggle('collapse');
+        document.body.style.overflow = 'visible'
     }
-    return d;
+})
+
+let boxes = document.getElementsByClassName('settings')[0]
+    .getElementsByClassName('box');
+
+for (let i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener('click', function () {
+        settingsContainer.classList.toggle('collapse');
+        pickColorContainer.classList.toggle('collapse');
+        let regimes = ['Pomodoro', 'Short Break', 'Long Break'];
+        pickColorContainer.getElementsByClassName('head')[0]
+            .innerText = 'Pick a color for ' + regimes[i];
+        for (const box of chooseBoxes) {
+            if (box.classList.contains(themes[i]))
+                box.innerHTML = '<i class="fa-solid fa-check"></i>'
+        }
+        pickColorContainer.setAttribute('number', i);
+    })
 }
 
-function getFormattedTime(time) {
-    return String(time.getMinutes()).padStart(2, '0') + ':' + String(time.getSeconds()).padStart(2, '0');
+pickColorContainer.addEventListener('click', function (ev) {
+    if (ev.target.classList.contains('pick-color-container')) {
+        settingsContainer.classList.toggle('collapse');
+        pickColorContainer.classList.toggle('collapse');
+        for (const box of chooseBoxes) {
+            box.innerHTML = '';
+        }
+    }
+})
+
+for (let box of pickColorContainer.getElementsByClassName('box')) {
+    box.addEventListener('click', function () {
+        let storedThemes = JSON.parse(localStorage.getItem('themes')) || themes;
+        storedThemes[+pickColorContainer.getAttribute('number')] =
+            this.classList[this.classList.length - 1];
+        localStorage.setItem('themes', JSON.stringify(storedThemes));
+        for (let box of pickColorContainer.getElementsByClassName('box')) {
+            box.innerHTML = '';
+        }
+        this.innerHTML = '<i class="fa-solid fa-check"></i>';
+        update(+pickColorContainer.getAttribute('number'));
+    })
 }
+
+//long break interval settings
+settingsContainer.getElementsByClassName('long-break-interval')[0]
+    .addEventListener('blur', function () {
+        longBreakInterval = this.value;
+        localStorage.setItem('longBreakInterval', longBreakInterval);
+    });
+
+//start timer
+document.getElementsByClassName('start-button')[0]
+    .addEventListener('click', function () {
+        document.getElementsByClassName('press-audio')[0].play();
+        this.classList.toggle('collapse');
+        document.getElementsByClassName('pause-button')[0].classList.toggle('collapse');
+        let finishTime = new Date().getTime() + +timer.innerText.split(':')[0] * 60000
+            + timer.innerText.split(':')[1] * 1000;
+
+        let time = times[firstPage.getAttribute('regime')];
+        time = +time.split(':')[0] * 60000 + +time.split(':')[1] * 1000;
+
+        timerInterval = setInterval(function () {
+            let left = finishTime - new Date().getTime();
+
+            if (left <= 0) {
+                clearInterval(timerInterval);
+                document.getElementsByClassName('start-button')[0].classList.toggle('collapse');
+                document.getElementsByClassName('pause-button')[0].classList.toggle('collapse');
+                if (+firstPage.getAttribute('regime') == 0) {
+                    numberOfIntervals++;
+                    if (numberOfIntervals % longBreakInterval === 0 && numberOfIntervals !== 0) {
+                        menu[2].click();
+                    } else
+                        menu[1].click();
+                    if (autoStartBreaks === 2)
+                        document.getElementsByClassName('start-button')[0].click();
+                } else {
+                    menu[0].click();
+                    if (autoStartPomodoros === 2)
+                        document.getElementsByClassName('start-button')[0].click();
+
+                }
+
+            } else {
+                timer.innerText = String(Math.floor(left / 60000)).padStart(2, '0') + ':' +
+                    String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
+                title.innerText = timer.innerText + title.innerText.substring(5);
+                document.getElementsByClassName('loadingBar')[0].style.width = (100 - (left / time * 100)) + '%';
+            }
+            console.log(timerInterval)
+        }, 100);
+        document.querySelector('link[rel="icon"]').setAttribute('href', `icons/${firstPage.classList[1]}.png`);
+    });
+
+//pause timer
+document.getElementsByClassName('pause-button')[0]
+    .addEventListener('click', function () {
+        document.getElementsByClassName('press-audio')[0].play();
+        this.classList.toggle('collapse');
+        document.getElementsByClassName('start-button')[0].classList.toggle('collapse');
+        clearInterval(timerInterval);
+        document.querySelector('link[rel="icon"]').setAttribute('href', 'icons/light-gray.png');
+        //todo
+    })
+
+//auto start breaks settings
+document.getElementsByClassName('auto-start-breaks')[0]
+    .addEventListener('click', function () {
+        autoStartBreaks = autoStartBreaks === 1 ? 2 : 1;
+        localStorage.setItem('autoStartBreaks', JSON.stringify(autoStartBreaks));
+    })
+//auto start pomodoros settings
+document.getElementsByClassName('auto-start-pomodoros')[0]
+    .addEventListener('click', function () {
+        autoStartPomodoros = autoStartPomodoros === 1 ? 2 : 1;
+        localStorage.setItem('autoStartPomodoros', JSON.stringify(autoStartPomodoros));
+
+    })
+
+
+//numbe of intervals to zero
+document.getElementsByClassName('number-of-intervals')[0]
+    .addEventListener('click', function () {
+        if (confirm('Do you want to refresh the pomodoro count?')) {
+            numberOfIntervals = 0;
+            this.innerText = '#0';
+        }
+    })

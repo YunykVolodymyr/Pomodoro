@@ -5,70 +5,120 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" href="icons/check-red.png" type="image/png">
+    <link rel="icon" href="icons/gold.png" type="icon/png">
     <script src="https://kit.fontawesome.com/162e276c9d.js" crossorigin="anonymous"></script>
+    <title>Document</title>
 </head>
 <body>
 
-<div class="firstPage bg-red">
+<div class="firstPage">
     <div class="settings-container collapse">
         <div class="settings">
-            <div class="lg">
+            <div class="exit">
                 <h2>Settings</h2>
-                <div class="exit"><i class="fa-solid fa-xmark"></i></div>
+                <img src="icons/remove-black-sm.png" alt="exit">
             </div>
-            <h3>TIMER</h3>
-            <h2>Time (minutes)</h2>
-            <form name="time-settings">
-                <label><h3>Pomodoro</h3><input type="number" name="pomodoro"></label>
-                <label><h3>Short Break</h3><input type="number" name="short-break"></label>
-                <label><h3>Long Break</h3><input type="number" name="long-break"></label>
+
+            <h3><i class="fa-sharp fa-regular fa-clock"></i> Timer</h3>
+            <h2>Time(minutes)</h2>
+            <form class="time-settings">
+                <label>Pomodoro<input type="number" value="25"></label>
+                <label>Short Break<input type="number" value="5"></label>
+                <label>Long Break<input type="number" value="15"></label>
             </form>
-        </div>
-    </div>
-    <div class="header" progress="100">
-        <div class="logo"><i class="fa-sharp fa-solid fa-circle-check"></i>Pomofocus</div>
-        <div class="menu">
-            <div class="button"><i class="fa-sharp fa-solid fa-chart-column"></i>Report</div>
-            <div class="settings-button button"><i class="fa-sharp fa-solid fa-gear"></i>Setting</div>
-            <div class="button">
-                <div class="list collapse">
-                    <ul>
-                        <li>Profile</li>
-                        <li>Subscription</li>
-                        <li>Logout</li>
-                        <li>Delete Account</li>
-                    </ul>
+            <div class="switch-container">
+                <p>Auto Start Breaks</p>
+                <div class="switch auto-start-breaks">
+                </div>
+            </div>
+            <div class="switch-container">
+                <p>Auto Start Pomodoros</p>
+                <div class="switch auto-start-pomodoros">
+                </div>
+            </div>
+            <div class="switch-container">
+                <p>Long Break Interval</p>
+                <input class="long-break-interval" type="number" value="4"></div>
+            <div class="line"></div>
+            <h3><i class="fa-regular fa-square-check"></i> Task</h3>
+            <div class="switch-container">
+                <p>Auto Switch Task</p>
+                <div class="switch"></div>
+            </div>
+            <div class="line"></div>
+            <h3><i class="fa-solid fa-volume-high"></i> Sound</h3>
+            <div class="line"></div>
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Theme</h3>
+            <div class="switch-container">
+                <p>Color Themes</p>
+                <div class="theme-container">
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
                 </div>
             </div>
         </div>
-        <div class="before"></div>
+    </div>
+    <div class="pick-color-container collapse">
+        <div class="pick-color ">
+            <div class="head">
+
+            </div>
+            <div class="boxes">
+                <div class="box red"></div>
+                <div class="box green"></div>
+                <div class="box blue"></div>
+                <div class="box gold"></div>
+                <div class="box purple"></div>
+                <div class="box light-purple"></div>
+                <div class="box dark-green"></div>
+                <div class="box gray"></div>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <img src="icons/icon-white2.png" alt="white check">
+            <h1>Pomofocus</h1>
+        </div>
+        <div class="menu">
+            <div class="report-button">
+                <i class="fa-sharp fa-solid fa-chart-column"></i>
+                <p>Report</p>
+            </div>
+            <div class="settings-button">
+                <i class="fa-solid fa-gear"></i>
+                <p>Settings</p>
+            </div>
+            <div class="profile-button"></div>
+        </div>
+        <div class="loadingBar"></div>
     </div>
     <div class="container">
+
         <div class="timer-container">
-            <div class="menu">
-                <ul>
-                    <li class="chosen">Pomodoro</li>
-                    <li>Short Break</li>
-                    <li>Long Break</li>
-                </ul>
+
+            <ul class="menu">
+                <li class="chosen">Pomodoro</li>
+                <li>Short Break</li>
+                <li>Long Break</li>
+            </ul>
+            <div class="timer"></div>
+            <div class="button-container">
+                <div class="start-button button">START</div>
+                <div class="pause-button button collapse">PAUSE</div>
             </div>
-            <div class="timer">00:05</div>
-            <div class="start-button button color-red">START</div>
-            <div class="pause-button button collapse color-red">PAUSE</div>
         </div>
-        <div class="number">#0</div>
-        <div class="command"></div>
+        <div class="number-of-intervals"></div>
+        <div class="timeFor"></div>
     </div>
-    <audio src="bell.mp3" id="bell"></audio>
+    <audio class="press-audio" src="sounds/start_pause.mp3"></audio>
 </div>
+<div class="secondPage"></div>
 
-<div class="secondPage">
-
-</div>
 
 <script src="js/main.js"></script>
 </body>
